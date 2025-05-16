@@ -2,6 +2,8 @@
 
 
 
+
+
 var cubename = 'cube';
 
 var latest_box_data = [];
@@ -76,8 +78,9 @@ $(function() {
 
     addBigCube(cubename, 0, 0, 0);
 
-    loadNextFrame();
 
+    loadNextFrame();
+    focusCamera(cubename)
 
 
 
