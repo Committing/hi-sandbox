@@ -10,17 +10,9 @@ var latest_box_data = [];
 
 
 
+function loadNextFrame() {
 
-$(function() {
-
-
-
-    animate();
-
-    addBigCube(cubename, 0, 0, 0);
-
-
-
+    $('.next_frame').addClass('noclick');
 
     $.ajax({
         type: 'POST',
@@ -35,7 +27,11 @@ $(function() {
 
             var data = JSON.parse(data);
 
-            latest_box_data['cube'] = data.box.main_cube;
+
+
+            latest_box_data[cubename] = data.box.main_cube;
+
+            clearBigCube(cubename);
 
             for (let i = 0; i < data.box.main_cube.length; i++) {
 
@@ -53,12 +49,44 @@ $(function() {
 
             }
 
+            $('.next_frame').removeClass('noclick');
+
             // console.log('Response:', data);
         },
         error: function(xhr, status, error) {
             console.error('AJAX Error:', status, error);
         }
     });
+
+}
+
+
+
+
+
+
+
+
+
+$(function() {
+
+
+
+    animate();
+
+    addBigCube(cubename, 0, 0, 0);
+
+    loadNextFrame();
+
+
+
+
+
+
+
+    // ajax call
+    // $('.latest_version_check').show();
+
 
 
 

@@ -7,6 +7,8 @@
 </head>
     <body>
 
+        <div class="latest_version_check"></div>
+
         <canvas id="cube"></canvas>
 
         <div class="ui">
@@ -35,11 +37,13 @@
             <button onclick="stopRotating();">stop_rotating</button>
             <button onclick="rotateCameraCounterClockwise();">rotate_camera_left</button>
             <button onclick="rotateCameraClockwise();">rotate_camera_right</button>
-            <button onclick="toggleClamp();">toggle_clamp_to_255</button>
+            <button onclick="toggleClamp();">clamp_to_255_max</button>
             <button onclick="toggleGradientLines();">toggle_gradient_lines</button>
             <button onclick="togglePerspective();">switch_perspective</button>
             <button onclick="focusCamera(cubename);">focus_cube</button>
             <button onclick="detatchCamera();">detatch_focus</button>
+
+            <button class="next_frame" onclick="loadNextFrame();">NEXT</button>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
