@@ -8,22 +8,29 @@ var cubename = 'cube';
 
 var latest_box_data = [];
 
+var autoload = false;
+
+var ajax_delay = 1000;
+
+var sphere_size = 2;
 
 
-
-
-function loadNextFrame() {
+function loadNextFrame(autoplay = false, reset_data = false) {
 
     $('.next_frame').addClass('noclick');
 
     $.ajax({
         type: 'POST',
         url: '/loop.php',
-        data: {},
+        data: {
+            reset_data: reset_data
+        },
         beforeSend: function() {
             console.log('Sending request...');
         },
         success: function(data) {
+
+
 
             latest_box_data = [];
 
@@ -31,8 +38,12 @@ function loadNextFrame() {
 
 
 
+
+
+
             latest_box_data[cubename] = data.box.main_cube;
 
+            // clear cube before adding new data in
             clearBigCube(cubename);
 
             for (let i = 0; i < data.box.main_cube.length; i++) {
@@ -49,11 +60,30 @@ function loadNextFrame() {
                     console.error("Error at index:", i, err);
                 }
 
+
             }
 
-            $('.next_frame').removeClass('noclick');
 
-            // console.log('Response:', data);
+            setSphereSize(sphere_size);
+
+
+            if (autoplay === true && autoload === true) {
+
+                setTimeout(function() {
+                    loadNextFrame(true);
+                }, ajax_delay);
+
+            } else {
+
+                $('.next_frame').removeClass('noclick');
+
+            }
+
+
+
+
+
+
         },
         error: function(xhr, status, error) {
             console.error('AJAX Error:', status, error);
@@ -63,6 +93,23 @@ function loadNextFrame() {
 }
 
 
+function autoLoadNextFrame() {
+    autoload = true;
+    loadNextFrame(true);
+}
+
+function stopAutoLoadNextFrame() {
+    autoload = false;
+}
+
+function hard_reset() {
+    autoload = false;
+    loadNextFrame(false, true);
+}
+
+function setDelay(delay = 1000) {
+    ajax_delay = delay;
+}
 
 
 
@@ -91,7 +138,7 @@ $(function() {
     // $('.latest_version_check').show();
 
 
-
+// button_selection
 
 
 });

@@ -13,23 +13,39 @@
 
         <div class="ui">
 
-            <br /><span class="tiny_title">Line opacity</span><br />
-            <button onclick="setLineOpacity(0);">0</button>
-            <button onclick="setLineOpacity(0.1);">0.1</button>
-            <button onclick="setLineOpacity(0.15);">0.15</button>
-            <button onclick="setLineOpacity(0.2);">0.2</button>
-            <button onclick="setLineOpacity(0.3);">0.3</button>
-            <button onclick="setLineOpacity(0.5);">0.5</button>
-            <button onclick="setLineOpacity(1);">1</button>
+            <div class="button_selection">
+                <br /><span class="tiny_title">Line opacity</span><br />
+                <button onclick="setLineOpacity(0);">0</button>
+                <button onclick="setLineOpacity(0.1);">0.1</button>
+                <button onclick="setLineOpacity(0.15);">0.15</button>
+                <button onclick="setLineOpacity(0.2);">0.2</button>
+                <button onclick="setLineOpacity(0.3);">0.3</button>
+                <button class="selected" onclick="setLineOpacity(0.5);">0.5</button>
+                <button onclick="setLineOpacity(1);">1</button>
+            </div>
 
-            <br /><span class="tiny_title">Sphere size</span><br />
-            <button onclick="setSphereSize(0);">0</button>
-            <button onclick="setSphereSize(1);">1</button>
-            <button onclick="setSphereSize(1.5);">1.5</button>
-            <button onclick="setSphereSize(2);">2</button>
-            <button onclick="setSphereSize(3);">3</button>
-            <button onclick="setSphereSize(5);">5</button>
-            <button onclick="setSphereSize(10);">10</button>
+            <div class="button_selection">
+                <br /><span class="tiny_title">Sphere size</span><br />
+                <button onclick="setSphereSize(0);">0</button>
+                <button class="selected" onclick="setSphereSize(1);">1</button>
+                <button onclick="setSphereSize(1.5);">1.5</button>
+                <button onclick="setSphereSize(2);">2</button>
+                <button onclick="setSphereSize(3);">3</button>
+                <button onclick="setSphereSize(5);">5</button>
+                <button onclick="setSphereSize(10);">10</button>
+            </div>
+
+            <div class="button_selection">
+                <br /><span class="tiny_title">AUTO-NEXT Delay</span><br />
+                <button onclick="setDelay(0);">0s</button>
+                <button onclick="setDelay(300);">0.3s</button>
+                <button onclick="setDelay(500);">0.5s</button>
+                <button class="selected" onclick="setDelay(1000);">1s</button>
+                <button onclick="setDelay(2000);">2s</button>
+                <button onclick="setDelay(3000);">3s</button>
+                <button onclick="setDelay(10000);">10s</button>
+            </div>
+
             <hr />
             <button onclick="toggleWireFrame();">toggle_wireFrame</button>
             <button onclick="toggleWireframeOpacity();">toggle_wireFrame_opacity</button>
@@ -44,6 +60,11 @@
             <button onclick="detatchCamera();">detatch_focus</button>
 
             <button class="next_frame" onclick="loadNextFrame();">NEXT</button>
+            <button onclick="autoLoadNextFrame();">AUTO-NEXT</button>
+            <button onclick="stopAutoLoadNextFrame();">AUTO-STOP</button>
+            <br />
+            <button onclick="hard_reset();">HARD_RESET</button>
+
         </div>
 
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

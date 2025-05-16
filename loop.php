@@ -5,7 +5,12 @@
 # Only lines and dots
 
 session_start(); # for looping data around
-// unset($_SESSION['loop']);
+
+
+if (isset($_POST['reset_data']) && $_POST['reset_data'] == 'true') {
+    unset($_SESSION['loop']);
+}
+
 require_once('jackinabox.class.php');
 
 # initiate class

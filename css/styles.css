@@ -29,6 +29,9 @@ body {
     border: none;
 }
 
+.ui button.selected {
+    background-color: white;
+}
 
 .tiny_title {
     font-size: 12px;

@@ -1007,6 +1007,7 @@ function getCubePosition(cubeName) {
     }
 }
 function setSphereSize(size) {
+    sphere_size = size;
     for (let key in latest_box_data) {
       if (latest_box_data.hasOwnProperty(key)) {
         changeAllSphereSizes(key, size);
