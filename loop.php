@@ -7,6 +7,7 @@
 session_start(); # for looping data around
 require_once('functions.php');
 require_once('classes/interactor.class.php');
+require_once('classes/groups.class.php');
 require_once('classes/box_positions.class.php');
 require_once('classes/box.class.php');
 require_once('classes/vectors.class.php');

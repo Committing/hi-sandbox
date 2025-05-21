@@ -20,15 +20,7 @@ class vectors extends box
         switch ($vector_type) {
 
             case 'hi':
-
-            $this->use_snake = 'cs';
-            
-                $this->loop = [
-                    'c1' => [127.5, 255, 127.5],
-                    'c2' => [127.5, 255, 127.5],
-                    's1' => [127.5, 0, 127.5],
-                    's2' => [127.5, 0, 127.5]
-                ];
+                $this->colors = $this->c->groups['hi'];
                 break;
 
             case 'thinking_face':
@@ -42,9 +34,7 @@ class vectors extends box
 
 
             case 'starting_line':
-
                 $this->box_positions = $this->box_positions_starting_line;
-
                 $this->loop = [
                     'input1' => [0, 0, 255],
                     'input2' => [0, 255, 255]
@@ -56,6 +46,8 @@ class vectors extends box
 
         if ( ! empty($this->previous_loop) ) {
             $this->loop = $this->previous_loop;
+        } else {
+            $this->loop = $this->convertColors($this->colors);
         }
     }
 

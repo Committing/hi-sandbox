@@ -16,7 +16,7 @@ class box extends box_positions
     public $conscious_box_log = true;
     public $show_project_snakes = true;
 
-    public $use_snake = 'cs';
+    public $use_snake = 'default';
     public $short_snake = false;
 
     public $box = [];

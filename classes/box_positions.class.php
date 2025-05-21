@@ -922,6 +922,15 @@ class box_positions
         return ['azimuth' => $azimuth, 'elevation' => $elevation];
     }
 
+    public function convertColors($colors)
+    {
+        $output = [];
+        foreach ($colors as $key => $var) {
+            $output[$key] = $var['color'];
+        }
+        return $output;
+    }
+
 
     public function move($rgb, $distance, $azimuthDegrees, $elevationDegrees = 0) {
         list($r, $g, $b) = $rgb;
@@ -973,6 +982,8 @@ class box_positions
             'line_width' => $line_width
         ];
     }
+
+
 
 
 
