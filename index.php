@@ -2,9 +2,13 @@
 
 // Official version check
 $v = (int) file_get_contents('https://devil.ai/glitch_version.txt');
-if ($v > 1) {
+if ($v > 2) {
     $nv = 'Updated version at: <a target="_blank" href="https://devil.ai/latest_glitch">https://devil.ai/latest_glitch</a>';
 }
+
+// Edit page link
+$subdomain = explode('.', $_SERVER['HTTP_HOST'])[0];
+$edit_link = 'https://glitch.com/edit/#!/' . $subdomain;
 
 ?><!DOCTYPE html>
 <html>
@@ -27,6 +31,7 @@ if ($v > 1) {
             <div class="frame_loader"><img src="/images/loader_circle.svg" alt="" /></div>
             <div class="frame_count">0</div>
             <div class="new_version"><?=(isset($nv) ? $nv : '');?></div>
+            <div class="edit_code"><a target="_blank" href="<?=$edit_link;?>">✏️ Edit code</a></div>
         </div>
 
         <div class="ui">
