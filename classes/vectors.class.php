@@ -19,6 +19,11 @@ class vectors extends box
     {
         switch ($vector_type) {
 
+            case 'hi':
+                $this->loop = [
+                    
+                ];
+                break;
 
             case 'thinking_face':
                 $this->loop = [
