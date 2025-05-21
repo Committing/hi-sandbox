@@ -1172,3 +1172,10 @@ function detatchCamera() {
     });
 }
 
+function toggleRotationLimits() {
+    if (limit_rotation_top_and_bottom === true) {
+        limit_rotation_top_and_bottom = false;
+    } else {
+        limit_rotation_top_and_bottom = true;
+    }
+}

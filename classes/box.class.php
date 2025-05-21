@@ -5,12 +5,15 @@
 
 
 
-class box
+class box extends box_positions
 {
     
     public $name = 'jack';
 
     public $center = [127.5, 127.5, 127.5];
+
+    public $box_log = false;
+    public $conscious_box_log = true;
 
     public $box = [];
 
@@ -38,78 +41,208 @@ class box
         5 => [ 'acronym' => '2f', 'word' => 'its2f' ]
     ];
 
-    public $box_positions = [
-        'infj' => [
-            'all_edges' => [
-                'blue_edge'             => [0, 127.5, 255],
-                'orange_edge'           => [255, 127.5, 0],
-                'pink_edge'             => [255, 0, 127.5],
-                'green_edge'            => [0, 255, 127.5],
-                'purple_edge'           => [127.5, 0, 255],
-                'yellow_edge'           => [127.5, 255, 0],
-                'white_cyan_edge'       => [127.5, 255, 255],
-                'black_red_edge'        => [127.5, 0, 0],
-                'black_green_edge'      => [0, 127.5, 0],
-                'white_magenta_edge'    => [255, 127.5, 255],
-                'black_blue_edge'       => [0, 0, 127.5],
-                'white_yellow_edge'     => [255, 255, 127.5],
-            ],
-            'all_corners' => [
-                'blue_corner'           => [0, 0, 255],
-                'yellow_corner'         => [255, 255, 0],
-                'turquoise_corner'      => [0, 255, 255],
-                'red_corner'            => [255, 0, 0],
-                'purple_corner'         => [255, 0, 255],
-                'green_corner'          => [0, 255, 0],
-                'white_corner'          => [255, 255, 255],
-                'black_corner'          => [0, 0, 0],
-            ],
-            'all_faces' => [
-                'green_face'            => [127.5, 255, 127.5],
-                'purple_face'           => [127.5, 0, 127.5],
-                'blue_face'             => [127.5, 127.5, 255],
-                'yellow_face'           => [127.5, 127.5, 0],
-                'teal_face'             => [0, 127.5, 127.5],
-                'pink_face'             => [255, 127.5, 127.5],
-            ],
-        ],
-        'enfp' => [
-            'all_faces' => [
-                'purple_face'           => [127.5, 0, 127.5],
-                'green_face'            => [127.5, 255, 127.5],
-                'yellow_face'           => [127.5, 127.5, 0],
-                'blue_face'             => [127.5, 127.5, 255],
-                'pink_face'             => [255, 127.5, 127.5],
-                'teal_face'             => [0, 127.5, 127.5],
-            ],
-            'all_edges' => [
-                'orange_edge'           => [255, 127.5, 0],
-                'blue_edge'             => [0, 127.5, 255],
-                'green_edge'            => [0, 255, 127.5],
-                'pink_edge'             => [255, 0, 127.5],
-                'yellow_edge'           => [127.5, 255, 0],
-                'purple_edge'           => [127.5, 0, 255],
-                'black_red_edge'        => [127.5, 0, 0],
-                'white_cyan_edge'       => [127.5, 255, 255],
-                'white_magenta_edge'    => [255, 127.5, 255],
-                'black_green_edge'      => [0, 127.5, 0],
-                'black_blue_edge'       => [0, 0, 127.5],
-                'white_yellow_edge'     => [255, 255, 127.5],
-            ],
-            'all_corners' => [
-                'yellow_corner'         => [255, 255, 0],
-                'blue_corner'           => [0, 0, 255],
-                'red_corner'            => [255, 0, 0],
-                'turquoise_corner'      => [0, 255, 255],
-                'green_corner'          => [0, 255, 0],
-                'purple_corner'         => [255, 0, 255],
-                'black_corner'          => [0, 0, 0],
-                'white_corner'          => [255, 255, 255],
-            ],
-        ]
-    ];
 
 
+
+    public function calculate_thinking_face($input1, $input2)
+    {
+        $input1_data = $this->cUnderstanding($input1);
+        $this->mInteraction($input1_data['c']);
+        $this->mInteraction($input1_data['s']);
+
+        $input2_data = $this->sUnderstanding($input2);
+        $this->mInteraction($input2_data['c']);
+        $this->mInteraction($input2_data['s']);
+
+        return [
+            'c' => $input1_data,
+            's' => $input2_data
+        ];
+    }
+
+
+    public function calculate_starting_line($input1, $input2)
+    {
+        # add line between inputs
+        $this->boxOutput('main_cube', [127.5, 127.5, 127.5]);
+        $this->boxOutput('main_cube', [$input1, $input2], '', 'line');
+
+        $understanding = $this->understandingInteraction([$input1, $input2]);
+
+        $understanding = $this->understandingInteraction([[255, 0, 0]]);
+        $this->middleInteraction($understanding['c']);
+        $this->middleInteraction($understanding['s']);
+        $understanding = $this->understandingInteraction([[255, 255, 0]]);
+        $this->middleInteraction($understanding['c']);
+        $this->middleInteraction($understanding['s']);
+        $understanding = $this->understandingInteraction([[0, 255, 0]]);
+        $this->middleInteraction($understanding['c']);
+        $this->middleInteraction($understanding['s']);
+        $understanding = $this->understandingInteraction([[0, 255, 255]]);
+        $this->middleInteraction($understanding['c']);
+        $this->middleInteraction($understanding['s']);
+        $understanding = $this->understandingInteraction([[0, 0, 255]]);
+        $this->middleInteraction($understanding['c']);
+        $this->middleInteraction($understanding['s']);
+        $understanding = $this->understandingInteraction([[255, 0, 255]]);
+        $this->middleInteraction($understanding['c']);
+        $this->middleInteraction($understanding['s']);
+        $understanding = $this->understandingInteraction([[255, 255, 255]]);
+        $this->middleInteraction($understanding['c']);
+        $this->middleInteraction($understanding['s']);
+        $understanding = $this->understandingInteraction([[0, 0, 0]]);
+        $this->middleInteraction($understanding['c']);
+        $this->middleInteraction($understanding['s']);
+
+        return [];
+    }
+
+
+    public function understandingInteraction($inputs)
+    {
+        $this->projections = [];
+        $projections = [];
+
+        foreach ($inputs as $input) {
+
+            $projection = $this->project( $input );
+
+            $projections[] = $projection;
+            $this->outputProjection(...$projection);
+
+        }
+
+        $middle_projection = $this->projections(...$projections);
+
+        $NC = $this->define($middle_projection['c']);
+        $NS = $this->define($middle_projection['s']);
+        $NCS = $this->define($middle_projection['cs']);
+
+        
+        if ($this->box_log || $this->conscious_box_log) {
+
+            $this->boxOutput('main_cube', $NC[0], 'NC');
+            $this->boxOutput('main_cube', $NS[0], 'NS');
+            $this->boxOutput('main_cube', $NCS[0], 'NCS');
+
+            $this->boxOutput('main_cube', [$NC[0], $NS[0]], '', 'line');
+            $this->boxOutput('main_cube', [$NC[0], $NCS[0]], '', 'line');
+            $this->boxOutput('main_cube', [$NS[0], $NCS[0]], '', 'line');
+
+            $this->boxOutput('main_cube', [$inputs[0][0], $inputs[0][1]], '', 'line', rgbToHex($NCS[0][0], $NCS[0][1], $NCS[0][2]), 10);
+
+        }
+          
+        if ($this->box_log) {
+
+            $this->boxOutput('main_cube', $middle_projection['c'], 'C');
+            $this->boxOutput('main_cube', $middle_projection['s'], 'S');
+            $this->boxOutput('main_cube', $middle_projection['cs'], 'CS');
+
+            $this->boxOutput('main_cube', [$middle_projection['c'], $middle_projection['s']], '', 'line');
+            $this->boxOutput('main_cube', [$middle_projection['c'], $middle_projection['cs']], '', 'line');
+            $this->boxOutput('main_cube', [$middle_projection['s'], $middle_projection['cs']], '', 'line');
+
+        }
+
+        return [
+            'c' => $NC[0],
+            'cs' => $NCS[0],
+            's' => $NS[0]
+        ];
+
+    }
+
+    public function middleInteraction($color, $line_color = '#ffff00')
+    {
+        $this->projections = [];
+
+        $projection = $this->project( $color );
+        $this->outputProjection(...$projection);
+
+        $projections = $this->projections($projection);
+
+        if ($this->box_log || $this->conscious_box_log) {
+
+            $this->boxOutput('main_cube', $projections['c'], 'C');
+            $this->boxOutput('main_cube', $projections['s'], 'S');
+            $this->boxOutput('main_cube', $projections['cs'], 'CS');
+            $this->boxOutput('main_cube', [$projections['c'], $projections['s']], '', 'line', $line_color);
+            $this->boxOutput('main_cube', [$projections['c'], $projections['cs']], '', 'line', $line_color);
+            $this->boxOutput('main_cube', [$projections['s'], $projections['cs']], '', 'line', $line_color);
+
+        }
+
+        $this->define($projections['c']);
+        $this->define($projections['s']);
+        $this->define($projections['cs']);
+
+        return [
+            'c' => $projections['c'],
+            's' => $projections['s'],
+            'cs' => $projections['cs']
+        ];
+    }
+
+
+    public function outputProjection(...$colors)
+    {
+
+        if (!$this->box_log) {
+            return;
+        }
+
+        foreach ($colors as $key => $color) {
+
+            $this->boxOutput('main_cube', $color, $this->vector_index[$key]['acronym'] );
+
+            // $this->boxOutput('main_cube', [$color, $this->center], '', 'line');
+
+        }
+
+        $this->boxOutput('main_cube', [$colors[0], $colors[1]], '', 'line');
+        $this->boxOutput('main_cube', [$colors[0], $colors[2]], '', 'line');
+        $this->boxOutput('main_cube', [$colors[1], $colors[2]], '', 'line');
+        $this->boxOutput('main_cube', [$colors[3], $colors[5]], '', 'line');
+        $this->boxOutput('main_cube', [$colors[3], $colors[4]], '', 'line');
+        $this->boxOutput('main_cube', [$colors[5], $colors[4]], '', 'line');
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /********
+     * 
+     * 
+     * 
+     * 
+     * EVERYTHING BELOW ARE LEGACY FUNCTIONS
+     * 
+     * 
+     * 
+     * 
+     */
     public function interaction($input1, $input2)
     {
         $input1_data = $this->cUnderstanding($input1);

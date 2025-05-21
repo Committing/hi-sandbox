@@ -29,12 +29,14 @@ function loadNextFrame(autoplay = false, reset_data = false) {
 
     $('.next_frame').addClass('noclick');
 
+    var send_data = {};
+    send_data['reset_data'] = reset_data;
+    send_data['setup'] = getParameterByName('setup');
+
     $.ajax({
         type: 'POST',
         url: '/loop.php',
-        data: {
-            reset_data: reset_data
-        },
+        data: send_data,
         beforeSend: function() {
             // console.log('Sending request...');
         },
@@ -47,7 +49,25 @@ function loadNextFrame(autoplay = false, reset_data = false) {
             var data = JSON.parse(data);
 
 
-            $('.frame_data .frame_count').html('Frame: ' + data.frame_count);
+            if ( $('.switch_links').is(':empty') ) {
+
+                for (var name of data.interactor_settings['supported_vectors']) {
+
+                    var selected = '';
+                    if (name == data.interactor_settings['use_setup']) {
+                        selected = 'selected';
+                    }
+
+                    $('.switch_links').append('<button class="' + selected + '" onclick="location.href=\'?setup=' + name + '\'">' + name + '</button>');
+
+                }
+
+            }
+
+
+
+
+            $('.frame_data .frame_count').html('Frame: ' + (data.frame_count == null ? 0 : data.frame_count));
             $('.frame_data .frame_loader').show();
 
 
@@ -100,6 +120,15 @@ function loadNextFrame(autoplay = false, reset_data = false) {
 
 }
 
+function getParameterByName(name) {
+    const url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+    const results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
 
 function autoLoadNextFrame() {
     autoload = true;

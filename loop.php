@@ -5,54 +5,34 @@
 # Only lines and dots
 
 session_start(); # for looping data around
+require_once('functions.php');
+require_once('classes/interactor.class.php');
+require_once('classes/box_positions.class.php');
+require_once('classes/box.class.php');
+require_once('classes/vectors.class.php');
 
-
-if (isset($_POST['reset_data']) && $_POST['reset_data'] == 'true') {
-    unset($_SESSION['loop']);
-    $_SESSION['frame_count'] = 1;
-}
-
-require_once('jackinabox.class.php');
 
 # initiate class
-$i = new box();
+$i = new interactor();
 
-# set starting color variables
-$c1 = $c2 = [127.5, 255, 127.5];
-$s1 = $s2 = [127.5, 0, 127.5];
+$i->use_setup = isset($_POST['setup']) && ! empty($_POST['setup']) ? $_POST['setup'] : 'starting_line';
 
-# override variables if looping (not first loop)
-if ( isset($_SESSION['loop']) && ! empty($_SESSION['loop']) ) {
-    # c1 and s1 are now swapped.
-    # c2 and s2 are now swapped.
-    $c1 = $_SESSION['loop']['s1'];
-    $c2 = $_SESSION['loop']['s2'];
-    $s1 = $_SESSION['loop']['c1'];
-    $s2 = $_SESSION['loop']['c2'];
+$i->loadSetup();
 
-    $_SESSION['frame_count'] = $_SESSION['frame_count'] + 1;
-}
+# If _reset_ was clicked, load first frame
+$i->checkResetData();
+
+# Load past loop's output for reiteration
+$i->loadPreviousProcess();
 
 # run the main interaction
-$result_c = $i->interaction($c1, $s1);
-$result_s = $i->interaction($s2, $c2);
+$i->runProcesses();
 
 # save output for next loop
-$_SESSION['loop'] = [
-    'c1' => $result_c['c']['cs'],
-    'c2' => $result_s['c']['cs'],
-    's1' => $result_c['s']['cs'],
-    's2' => $result_s['s']['cs'],
-];
+$i->saveProcesses();
 
-// usleep(2000000);
-// $i->testOutputManually();
-
-# return the process's ouput for displaying in an rgb cube
-echo json_encode( [
-    'box' => $i->box,
-    'frame_count' => $_SESSION['frame_count'],
-], JSON_PRETTY_PRINT);
+# output
+$i->outputRepresentations();
 exit;
 
 

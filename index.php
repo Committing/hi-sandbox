@@ -10,6 +10,7 @@ if ($v > 2) {
 $subdomain = explode('.', $_SERVER['HTTP_HOST'])[0];
 $edit_link = 'https://glitch.com/edit/#!/' . $subdomain;
 
+
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +36,11 @@ $edit_link = 'https://glitch.com/edit/#!/' . $subdomain;
         </div>
 
         <div class="ui">
+
+            <div class="button_selection">
+                <br /><span class="tiny_title">Switch setup</span><br />
+                <div class="switch_links"></div>
+            </div>
 
             <div class="button_selection">
                 <br /><span class="tiny_title">Line opacity</span><br />
@@ -82,14 +88,15 @@ $edit_link = 'https://glitch.com/edit/#!/' . $subdomain;
             <button class="gradient_lines" onclick="toggleGradientLines();">toggle_gradient_lines</button>
 
 
+            <button onclick="toggleRotationLimits();">toggleRotationLimits</button>
             <button onclick="startRotating();">start_rotating</button>
             <button onclick="stopRotating();">stop_rotating</button>
 
-            <button onclick="rotateCameraCounterClockwise();">roll_camera_left</button>
-            <button onclick="rotateCameraClockwise();">roll_camera_right</button>
+            <button onclick="rotateCameraCounterClockwise();">roll_camera_left = [</button>
+            <button onclick="rotateCameraClockwise();">roll_camera_right = ]</button>
 
-            <button onclick="togglePerspective();">switch_perspective</button>
-            <button onclick="detatchCamera();">detatch_focus</button>
+            <button onclick="togglePerspective();">switch_perspective = p</button>
+            <button onclick="detatchCamera();">fly_around</button>
             <button class="focus_center">focus_center</button>
             <button onclick="resetCamera();">reset_camera</button>
             <hr />
