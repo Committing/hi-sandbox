@@ -4,12 +4,21 @@
     <meta charset="UTF-8" />
     <title>HI Sandbox Area</title>
     <link rel="stylesheet" href="/css/styles.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
     <body>
 
         <div class="latest_version_check"></div>
 
         <canvas id="cube"></canvas>
+
+        <div class="frame_data">
+            <div class="frame_loader"><img src="/images/loader_circle.svg" alt="" /></div>
+            <div class="frame_count">0</div>
+        </div>
 
         <div class="ui">
 
@@ -24,7 +33,7 @@
                 <button onclick="setLineOpacity(1);">1</button>
             </div>
 
-            <div class="button_selection">
+            <div class="button_selection sphere_size_section">
                 <br /><span class="tiny_title">Sphere size</span><br />
                 <button onclick="setSphereSize(0);">0</button>
                 <button class="selected" onclick="setSphereSize(1);">1</button>
@@ -36,7 +45,7 @@
             </div>
 
             <div class="button_selection">
-                <br /><span class="tiny_title">AUTO-NEXT Delay</span><br />
+                <br /><span class="tiny_title">Delay between frames (play)</span><br />
                 <button onclick="setDelay(0);">0s</button>
                 <button onclick="setDelay(300);">0.3s</button>
                 <button onclick="setDelay(500);">0.5s</button>
@@ -47,23 +56,34 @@
             </div>
 
             <hr />
-            <button onclick="toggleWireFrame();">toggle_wireFrame</button>
-            <button onclick="toggleWireframeOpacity();">toggle_wireFrame_opacity</button>
+
+            <button onclick="focusCamera(cubename);">focus_cube</button>
+
+            <hr />
+
+            <button class="toggle_edges" onclick="toggleWireFrame();">toggle_edges</button>
+            <button class="toggle_edges toggle_edge_opacity" onclick="toggleWireframeOpacity();">toggle_edge_opacity</button>
+            
+            <button onclick="toggleClamp();">clamp_to_255_max</button>
+            <button class="gradient_lines" onclick="toggleGradientLines();">toggle_gradient_lines</button>
+
+
             <button onclick="startRotating();">start_rotating</button>
             <button onclick="stopRotating();">stop_rotating</button>
-            <button onclick="rotateCameraCounterClockwise();">rotate_camera_left</button>
-            <button onclick="rotateCameraClockwise();">rotate_camera_right</button>
-            <button onclick="toggleClamp();">clamp_to_255_max</button>
-            <button onclick="toggleGradientLines();">toggle_gradient_lines</button>
-            <button onclick="togglePerspective();">switch_perspective</button>
-            <button onclick="focusCamera(cubename);">focus_cube</button>
-            <button onclick="detatchCamera();">detatch_focus</button>
 
-            <button class="next_frame" onclick="loadNextFrame();">NEXT</button>
-            <button onclick="autoLoadNextFrame();">AUTO-NEXT</button>
-            <button onclick="stopAutoLoadNextFrame();">AUTO-STOP</button>
-            <br />
-            <button onclick="hard_reset();">HARD_RESET</button>
+            <button onclick="rotateCameraCounterClockwise();">roll_camera_left</button>
+            <button onclick="rotateCameraClockwise();">roll_camera_right</button>
+
+            <button onclick="togglePerspective();">switch_perspective</button>
+            <button onclick="detatchCamera();">detatch_focus</button>
+            <button class="focus_center">focus_center</button>
+            <button onclick="resetCamera();">reset_camera</button>
+            <hr />
+
+            <button style="background-color: #44ff43;color: black;" class="next_frame" onclick="loadNextFrame();">Next</button>
+            <button onclick="autoLoadNextFrame();">play</button>
+            <button onclick="stopAutoLoadNextFrame();">stop</button>
+            <button style="background-color: red;color: white;" onclick="hard_reset();">_reset_</button>
 
         </div>
 

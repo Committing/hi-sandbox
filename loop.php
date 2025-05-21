@@ -9,6 +9,7 @@ session_start(); # for looping data around
 
 if (isset($_POST['reset_data']) && $_POST['reset_data'] == 'true') {
     unset($_SESSION['loop']);
+    $_SESSION['frame_count'] = 1;
 }
 
 require_once('jackinabox.class.php');
@@ -28,6 +29,8 @@ if ( isset($_SESSION['loop']) && ! empty($_SESSION['loop']) ) {
     $c2 = $_SESSION['loop']['s2'];
     $s1 = $_SESSION['loop']['c1'];
     $s2 = $_SESSION['loop']['c2'];
+
+    $_SESSION['frame_count'] = $_SESSION['frame_count'] + 1;
 }
 
 # run the main interaction
@@ -42,11 +45,14 @@ $_SESSION['loop'] = [
     's2' => $result_s['s']['cs'],
 ];
 
-
+// sleep(1000);
 // $i->testOutputManually();
 
 # return the process's ouput for displaying in an rgb cube
-echo json_encode( [ 'box' => $i->box ], JSON_PRETTY_PRINT);
+echo json_encode( [
+    'box' => $i->box,
+    'frame_count' => $_SESSION['frame_count'],
+], JSON_PRETTY_PRINT);
 exit;
 
 

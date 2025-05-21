@@ -14,8 +14,18 @@ var ajax_delay = 1000;
 
 var sphere_size = 2;
 
+var center_focus = [127.5, 127.5, 127.5];
+
+
+
+
+
+
+
 
 function loadNextFrame(autoplay = false, reset_data = false) {
+
+    $('.frame_loader').addClass('show_loader');
 
     $('.next_frame').addClass('noclick');
 
@@ -26,7 +36,7 @@ function loadNextFrame(autoplay = false, reset_data = false) {
             reset_data: reset_data
         },
         beforeSend: function() {
-            console.log('Sending request...');
+            // console.log('Sending request...');
         },
         success: function(data) {
 
@@ -37,8 +47,8 @@ function loadNextFrame(autoplay = false, reset_data = false) {
             var data = JSON.parse(data);
 
 
-
-
+            $('.frame_data .frame_count').html('Frame: ' + data.frame_count);
+            $('.frame_data .frame_loader').show();
 
 
             latest_box_data[cubename] = data.box.main_cube;
@@ -81,7 +91,7 @@ function loadNextFrame(autoplay = false, reset_data = false) {
 
 
 
-
+            $('.frame_loader').removeClass('show_loader');
 
 
         },
@@ -111,8 +121,41 @@ function setDelay(delay = 1000) {
     ajax_delay = delay;
 }
 
+setInterval(function() {
+    updateBigCubeCenter(cubes);
+}, 5000);
 
+function updateBigCubeCenter(cubes) {
+  let total = { x: 0, y: 0, z: 0 };
+  let count = 0;
 
+  for (let name in cubes) {
+    let pos = getCubePosition(name);
+    if (!pos) continue;
+    total.x += pos.x;
+    total.y += pos.y;
+    total.z += pos.z;
+    count++;
+  }
+
+  if (count === 0) return null;
+
+  // Compute the average once
+  const center = {
+    x: total.x / count,
+    y: total.y / count,
+    z: total.z / count
+  };
+
+  // Now correctly update your global
+  center_focus = [center.x + 127.5, center.y + 127.5, center.z + 127.5];
+
+  return center;
+}
+function resetCamera() {
+    moveCameraToAbsolutePosition(375.8890222426527, 266.3958161399071, 762.936539623091, -0.21519860729762202, 0.3647876340543965, 0.07782230458101305);
+    focusCameraToPosition(center_focus[0], center_focus[1], center_focus[2]);
+}
 
 
 
@@ -127,18 +170,23 @@ $(function() {
 
 
     loadNextFrame();
-    focusCamera(cubename)
+
+    resetCamera();
+    focusCamera(cubename);
+    togglePerspective();
 
 
 
+    $('.focus_center').click(function() {
+        focusCameraToPosition(center_focus[0], center_focus[1], center_focus[2]);
+    });
 
 
-
-    // ajax call
-    // $('.latest_version_check').show();
-
-
-// button_selection
+    $('.button_selection button').click(function() {
+        var buttons = $(this).closest('.button_selection').find('button');
+        buttons.removeClass('selected');
+        $(this).addClass('selected');
+    });
 
 
 });

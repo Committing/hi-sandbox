@@ -79,7 +79,7 @@ var center_focus = [127.5, 127.5, 127.5];
 
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 50000);
+const camera = new THREE.PerspectiveCamera(35, window.innerWidth/window.innerHeight, 0.1, 50000);
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector('#cube'),
   antialias: true // Enable antialiasing
@@ -109,7 +109,7 @@ camera.position.set(0, 0, 800);
 // Variable to track if the bright lines are currently at full opacity (1)
 let areBrightLinesFullOpacity = false;
 let isWireframeEnabled = true; // Track the wireframe state
-let isWireframeOpacityLow = true; // Track if wireframe opacity is 0.2
+let isWireframeOpacityLow = false; // Track if wireframe opacity is 0.2
 
 // Animation variables
 let isAnimatingCameraPosition = false;
@@ -1171,3 +1171,4 @@ function detatchCamera() {
         rotation: new THREE.Euler(-0.3458058503908643, -0.023068976642661495, -0.008310425402397292)
     });
 }
+
