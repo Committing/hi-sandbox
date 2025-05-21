@@ -27,15 +27,24 @@ body {
     padding-bottom: 15px;
 }
 
+.frame_data div {
+    width: 150px;
+    text-align: right;
+}
+
 .frame_loader img {
     height: auto;
     width: 30px;
-    float: right;
     margin-bottom: 15px;
     display: inline-block;
-    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
 }
 
+.show_loader img {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
 
 .ui {
     position: fixed;
@@ -136,6 +145,3 @@ body {
     border-radius: 100%;
 }
 
-.show_loader {
-    display: block;
-}

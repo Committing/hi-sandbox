@@ -90,10 +90,8 @@ function loadNextFrame(autoplay = false, reset_data = false) {
             }
 
 
-
             $('.frame_loader').removeClass('show_loader');
-
-
+            
         },
         error: function(xhr, status, error) {
             console.error('AJAX Error:', status, error);

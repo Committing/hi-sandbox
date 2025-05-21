@@ -45,7 +45,7 @@ $_SESSION['loop'] = [
     's2' => $result_s['s']['cs'],
 ];
 
-// sleep(1000);
+// usleep(2000000);
 // $i->testOutputManually();
 
 # return the process's ouput for displaying in an rgb cube
