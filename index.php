@@ -2,7 +2,7 @@
 
 // Official version check
 $v = (int) file_get_contents('https://devil.ai/glitch_version.txt');
-if ($v > 0) {
+if ($v > 1) {
     $nv = 'Updated version at: <a target="_blank" href="https://devil.ai/latest_glitch">https://devil.ai/latest_glitch</a>';
 }
 
