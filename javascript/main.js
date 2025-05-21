@@ -129,7 +129,6 @@ function loadNextFrame(autoplay = false, reset_data = false) {
 
             if (data.frame_count == 1) {
 
-                togglePerspective();
                 resetCamera();
 
             }
@@ -250,7 +249,7 @@ $(function() {
 
 
     loadNextFrame(false, true);
-    
+    togglePerspective();
     
     
 
@@ -265,6 +264,14 @@ $(function() {
         buttons.removeClass('selected');
         $(this).addClass('selected');
     });
+
+
+
+    // force get param on glitch.com
+    if ( ! getParameterByName('setup') ) {
+        window.location.href = window.location.pathname + '?setup=hi';
+    }
+
 
 
 });
