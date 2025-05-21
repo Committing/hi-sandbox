@@ -1,4 +1,12 @@
-<!DOCTYPE html>
+<?php
+
+// Official version check
+$v = (int) file_get_contents('https://devil.ai/glitch_version.txt');
+if ($v > 0) {
+    $nv = 'Updated version at: <a target="_blank" href="https://devil.ai/latest_glitch">https://devil.ai/latest_glitch</a>';
+}
+
+?><!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8" />
@@ -18,6 +26,7 @@
         <div class="frame_data">
             <div class="frame_loader"><img src="/images/loader_circle.svg" alt="" /></div>
             <div class="frame_count">0</div>
+            <div class="new_version"><?=(isset($nv) ? $nv : '');?></div>
         </div>
 
         <div class="ui">

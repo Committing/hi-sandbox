@@ -28,7 +28,7 @@ body {
 }
 
 .frame_data div {
-    width: 150px;
+    width: 250px;
     text-align: right;
 }
 
@@ -145,3 +145,14 @@ body {
     border-radius: 100%;
 }
 
+.new_version:empty {
+  display: none;
+}
+
+.new_version {
+    color: red;
+}
+
+.new_version a {
+    color: red;
+}
