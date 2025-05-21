@@ -20,8 +20,14 @@ class vectors extends box
         switch ($vector_type) {
 
             case 'hi':
+
+            $this->use_snake = 'cs';
+            
                 $this->loop = [
-                    
+                    'c1' => [127.5, 255, 127.5],
+                    'c2' => [127.5, 255, 127.5],
+                    's1' => [127.5, 0, 127.5],
+                    's2' => [127.5, 0, 127.5]
                 ];
                 break;
 
@@ -89,6 +95,31 @@ class vectors extends box
     }
 
 
+
+    public function process_hi()
+    {
+        if ( ! empty($this->previous_loop) ) {
+            $c1 = $this->previous_loop['s1'];
+            $c2 = $this->previous_loop['s2'];
+            $s1 = $this->previous_loop['c1'];
+            $s2 = $this->previous_loop['c2'];
+        } else {
+            $c1 = $this->loop['c1'];
+            $c2 = $this->loop['c2'];
+            $s1 = $this->loop['s1'];
+            $s2 = $this->loop['s2'];
+        }
+
+        $result_c = $this->calculate_hi($c1, $s1);
+        $result_s = $this->calculate_hi($s2, $c2);
+
+        $this->result = [
+            'c1' => $result_c['c']['cs'],
+            'c2' => $result_s['c']['cs'],
+            's1' => $result_c['s']['cs'],
+            's2' => $result_s['s']['cs'],
+        ];
+    }
 
 
 

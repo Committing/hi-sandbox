@@ -35,7 +35,7 @@ class interactor
 
 
 
-
+    // set in url ?setup=starting_line
     public function loadSetup()
     {
 
@@ -54,6 +54,11 @@ class interactor
             case 'thinking_face':
                 $this->use_vectors = 'thinking_face';
                 $this->use_process = 'process_thinking_face';
+                break;
+
+            case 'hi':
+                $this->use_vectors = 'hi';
+                $this->use_process = 'process_hi';
                 break;
 
 
