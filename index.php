@@ -32,7 +32,7 @@ $edit_link = 'https://glitch.com/edit/#!/' . $subdomain;
             <div class="frame_loader"><img src="/images/loader_circle.svg" alt="" /></div>
             <div class="frame_count">0</div>
             <div class="new_version"><?=(isset($nv) ? $nv : '');?></div>
-            <div class="edit_code"><a target="_blank" href="<?=$edit_link;?>">✏️ Edit code</a></div>
+            <div class="edit_code"><a target="_blank" href="<?=$edit_link;?>">✏️ Live edit code</a></div>
         </div>
 
         <div class="ui">

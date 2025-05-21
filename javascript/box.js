@@ -122,7 +122,7 @@ let animationDuration = 1000; // Default animation duration in milliseconds
 let isGradientLinesEnabled = false;
 
 // New variable to track the clamping state
-let isClampingEnabled = true;
+let isClampingEnabled = false;
 // Object to store the original positions of spheres and lines
 const originalPositions = {};
 

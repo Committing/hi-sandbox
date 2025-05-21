@@ -24,21 +24,21 @@ class box extends box_positions
     ];
 
     public $vector_word_index = [
-        'its1m' => [ 'acronym' => '1m', 'index' => 0 ],
-        'its1u' => [ 'acronym' => '1u', 'index' => 1 ],
-        'its1f' => [ 'acronym' => '1f', 'index' => 2 ],
-        'its2m' => [ 'acronym' => '2m', 'index' => 3 ],
-        'its2u' => [ 'acronym' => '2u', 'index' => 4 ],
-        'its2f' => [ 'acronym' => '2f', 'index' => 5 ]
+        'conscious_meaning' => [ 'acronym' => 'cm', 'index' => 0 ],
+        'conscious_understanding' => [ 'acronym' => 'cu', 'index' => 1 ],
+        'conscious_feeling' => [ 'acronym' => 'cf', 'index' => 2 ],
+        'subconscious_meaning' => [ 'acronym' => 'sm', 'index' => 3 ],
+        'subconscious_understanding' => [ 'acronym' => 'su', 'index' => 4 ],
+        'subconscious_feeling' => [ 'acronym' => 'sf', 'index' => 5 ]
     ];
 
     public $vector_index = [
-        0 => [ 'acronym' => '1m', 'word' => 'its1m' ],
-        1 => [ 'acronym' => '1u', 'word' => 'its1u' ],
-        2 => [ 'acronym' => '1f', 'word' => 'its1f' ],
-        3 => [ 'acronym' => '2m', 'word' => 'its2m' ],
-        4 => [ 'acronym' => '2u', 'word' => 'its2u' ],
-        5 => [ 'acronym' => '2f', 'word' => 'its2f' ]
+        0 => [ 'acronym' => 'cm', 'word' => 'conscious_meaning' ],
+        1 => [ 'acronym' => 'cu', 'word' => 'conscious_understanding' ],
+        2 => [ 'acronym' => 'cf', 'word' => 'conscious_feeling' ],
+        3 => [ 'acronym' => 'sm', 'word' => 'subconscious_meaning' ],
+        4 => [ 'acronym' => 'su', 'word' => 'subconscious_understanding' ],
+        5 => [ 'acronym' => 'sf', 'word' => 'subconscious_feeling' ]
     ];
 
 
@@ -63,6 +63,7 @@ class box extends box_positions
 
     public function calculate_starting_line($input1, $input2)
     {
+
         # add line between inputs
         $this->boxOutput('main_cube', [127.5, 127.5, 127.5]);
         $this->boxOutput('main_cube', [$input1, $input2], '', 'line');
@@ -70,8 +71,10 @@ class box extends box_positions
         $understanding = $this->understandingInteraction([$input1, $input2]);
 
         $understanding = $this->understandingInteraction([[255, 0, 0]]);
-        $this->middleInteraction($understanding['c']);
-        $this->middleInteraction($understanding['s']);
+        $m = $this->middleInteraction($understanding['c']);
+
+
+        $mm = $this->middleInteraction($understanding['s']);
         $understanding = $this->understandingInteraction([[255, 255, 0]]);
         $this->middleInteraction($understanding['c']);
         $this->middleInteraction($understanding['s']);
@@ -159,7 +162,7 @@ class box extends box_positions
 
         $projection = $this->project( $color );
         $this->outputProjection(...$projection);
-
+// tick
         $projections = $this->projections($projection);
 
         if ($this->box_log || $this->conscious_box_log) {
@@ -549,6 +552,8 @@ class box extends box_positions
 
         }
 
+
+
         $process = [];
 
         foreach ($projections as $key => $var) {
@@ -556,15 +561,15 @@ class box extends box_positions
             $closest = $this->findExactClosestPoint( $this->projections[$key] );
 
             if ($closest['type'] == 'all_faces') {
-                $type = 'f';
+                $type = 'feeling';
             }
 
             if ($closest['type'] == 'all_edges') {
-                $type = 'u';
+                $type = 'understanding';
             }
 
             if ($closest['type'] == 'all_corners') {
-                $type = 'm';
+                $type = 'meaning';
             }
 
             $process[] = [
@@ -580,8 +585,8 @@ class box extends box_positions
 
         foreach ($process as $key => $var) {
 
-            $index_search_c = $this->vector_word_index['its1' . $var['type']]['index'];
-            $index_search_s = $this->vector_word_index['its2' . $var['type']]['index'];
+            $index_search_c = $this->vector_word_index['conscious_' . $var['type']]['index'];
+            $index_search_s = $this->vector_word_index['subconscious_' . $var['type']]['index'];
 
             $matching_star_position_c = $projections[$var['projection_id']][$index_search_c];
             $matching_star_position_s = $projections[$var['projection_id']][$index_search_s];
@@ -595,18 +600,18 @@ class box extends box_positions
         $closest = $this->findExactClosestPoint( $cs );
 
         if ($closest['type'] == 'all_faces') {
-            $c[] = $middle_star['1f'];
-            $s[] = $middle_star['2f'];
+            $c[] = $middle_star['cf'];
+            $s[] = $middle_star['sf'];
         }
 
         if ($closest['type'] == 'all_edges') {
-            $c[] = $middle_star['1u'];
-            $s[] = $middle_star['2u'];
+            $c[] = $middle_star['cu'];
+            $s[] = $middle_star['su'];
         }
 
         if ($closest['type'] == 'all_corners') {
-            $c[] = $middle_star['1m'];
-            $s[] = $middle_star['2m'];
+            $c[] = $middle_star['cm'];
+            $s[] = $middle_star['sm'];
         }
 
 

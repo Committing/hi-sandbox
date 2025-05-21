@@ -19,6 +19,7 @@ class vectors extends box
     {
         switch ($vector_type) {
 
+
             case 'thinking_face':
                 $this->loop = [
                     'c1' => [127.5, 255, 127.5],
@@ -26,13 +27,13 @@ class vectors extends box
                     's1' => [127.5, 0, 127.5],
                     's2' => [127.5, 0, 127.5]
                 ];
-                // adding thinking face now. (make it loop correctly)
-                // next step 1 (reward): set the four input colours from mbti h_face (same as above)
-                // then change starting_line to work with correct edge/whatever order
                 break;
 
 
             case 'starting_line':
+
+                $this->box_positions = $this->box_positions_starting_line;
+
                 $this->loop = [
                     'input1' => [0, 0, 255],
                     'input2' => [0, 255, 255]
@@ -59,7 +60,6 @@ class vectors extends box
 
     public function process_thinking_face()
     {
-
         if ( ! empty($this->previous_loop) ) {
             $c1 = $this->previous_loop['s1'];
             $c2 = $this->previous_loop['s2'];
