@@ -20,7 +20,7 @@ Available cube commands:
 - focusCamera(cubeName)
 - focusCameraToPosition(x, y, z)
 - getAbsoluteCameraPosition()
-- getCameraPosition()
+- getCameraPosition() # recommend getAbsoluteCameraPosition(); instead
 - getCubePosition(cubeName)
 - getCubeRotation(cubeName)
 - hideCube(cubeName)
@@ -463,6 +463,15 @@ function getCameraPosition() {
         position: position,
         rotation: rotation
     };
+}
+
+function cubeExists(cubeName) {
+    const cube = cubes[cubeName];
+    if (!cube) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 function moveCube(cubeName, x, y, z) {

@@ -12,7 +12,16 @@ class vectors extends box
 
     public $vectors = [];
 
+    public $c = null;
 
+    // $this->group_by_properties = [
+    //     'conscious'
+    // ];
+
+    public function __construct()
+    {
+        $this->c = new colors();
+    }
 
 
     public function loadVectors($vector_type)
@@ -24,21 +33,13 @@ class vectors extends box
                 break;
 
             case 'thinking_face':
-                $this->loop = [
-                    'c1' => [127.5, 255, 127.5],
-                    'c2' => [127.5, 255, 127.5],
-                    's1' => [127.5, 0, 127.5],
-                    's2' => [127.5, 0, 127.5]
-                ];
+                $this->colors = $this->c->groups['thinking_face'];
                 break;
 
 
             case 'starting_line':
+                $this->colors = $this->c->groups['starting_line'];
                 $this->box_positions = $this->box_positions_starting_line;
-                $this->loop = [
-                    'input1' => [0, 0, 255],
-                    'input2' => [0, 255, 255]
-                ];
                 break;
 
 
@@ -47,7 +48,7 @@ class vectors extends box
         if ( ! empty($this->previous_loop) ) {
             $this->loop = $this->previous_loop;
         } else {
-            $this->loop = $this->convertColors($this->colors);
+            $this->loop = $this->onlyColorsArray($this->colors);
         }
     }
 

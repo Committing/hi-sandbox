@@ -922,7 +922,7 @@ class box_positions
         return ['azimuth' => $azimuth, 'elevation' => $elevation];
     }
 
-    public function convertColors($colors)
+    public function onlyColorsArray($colors)
     {
         $output = [];
         foreach ($colors as $key => $var) {

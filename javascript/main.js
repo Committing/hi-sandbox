@@ -48,13 +48,20 @@ function loadNextFrame(autoplay = false, reset_data = false) {
 
             var data = JSON.parse(data);
 
+            var class_settings = data.interactor_settings;
 
+
+
+
+
+
+            // build buttons to all switch setups
             if ( $('.switch_links').is(':empty') ) {
 
-                for (var name of data.interactor_settings['supported_vectors']) {
+                for (var name of class_settings['supported_vectors']) {
 
                     var selected = '';
-                    if (name == data.interactor_settings['use_setup']) {
+                    if (name == class_settings['use_setup']) {
                         selected = 'selected';
                     }
 
@@ -63,6 +70,8 @@ function loadNextFrame(autoplay = false, reset_data = false) {
                 }
 
             }
+
+
 
 
 
@@ -76,15 +85,37 @@ function loadNextFrame(autoplay = false, reset_data = false) {
             // clear cube before adding new data in
             clearBigCube(cubename);
 
+            if (class_settings['duplicate_cube'] == true) {
+
+                if (cubeExists(cubename+'_dupe')) {
+
+                    clearBigCube(cubename+'_dupe');
+
+                } else {
+
+                    addBigCube(cubename+'_dupe', 255, 0, 0);
+
+                    rotateBigCube(cubename+'_dupe', { y: (-90 * Math.PI) / 180 });
+
+                }
+
+            }
+
             for (let i = 0; i < data.box.main_cube.length; i++) {
 
                 const item = data.box.main_cube[i];
 
                 try {
                     if (item.type == 'line') {
+
                         addBigLine(cubename, ...item.position[0], ...item.position[1]);
+                        if (class_settings['duplicate_cube'] == true) { addBigLine(cubename+'_dupe', ...item.position[0], ...item.position[1]); }
+
                     } else {
+
                         addBigSphere(cubename, ...item.position);
+                        if (class_settings['duplicate_cube'] == true) { addBigSphere(cubename+'_dupe', ...item.position); }
+
                     }
                 } catch (err) {
                     console.error("Error at index:", i, err);
@@ -95,6 +126,14 @@ function loadNextFrame(autoplay = false, reset_data = false) {
 
 
             setSphereSize(sphere_size);
+
+            if (data.frame_count == 1) {
+
+                togglePerspective();
+                resetCamera();
+
+            }
+
 
 
             if (autoplay === true && autoload === true) {
@@ -140,8 +179,10 @@ function stopAutoLoadNextFrame() {
 }
 
 function hard_reset() {
-    autoload = false;
-    loadNextFrame(false, true);
+    stopAutoLoadNextFrame()
+    setTimeout(function() {
+        loadNextFrame(false, true);
+    }, 100);
 }
 
 function setDelay(delay = 1000) {
@@ -179,9 +220,21 @@ function updateBigCubeCenter(cubes) {
 
   return center;
 }
-function resetCamera() {
-    moveCameraToAbsolutePosition(375.8890222426527, 266.3958161399071, 762.936539623091, -0.21519860729762202, 0.3647876340543965, 0.07782230458101305);
-    focusCameraToPosition(center_focus[0], center_focus[1], center_focus[2]);
+function resetCamera(cubename = '') {
+
+    if (getParameterByName('setup') == 'hi') {
+
+        moveCameraToAbsolutePosition(262.11191803663206, 90.53692196329055, 824.067945766782, 0.004162227947546557, -0.002367242741346239, 8.47040284366574e-22);
+        toggleWireFrame();
+
+    } else {
+
+        moveCameraToAbsolutePosition(375.8890222426527, 266.3958161399071, 762.936539623091, -0.21519860729762202, 0.3647876340543965, 0.07782230458101305);
+        focusCameraToPosition(center_focus[0], center_focus[1], center_focus[2]);
+        focusCamera(cubename);
+
+    }
+
 }
 
 
@@ -196,12 +249,10 @@ $(function() {
     addBigCube(cubename, 0, 0, 0);
 
 
-    loadNextFrame();
-
-    resetCamera();
-    focusCamera(cubename);
-    togglePerspective();
-
+    loadNextFrame(false, true);
+    
+    
+    
 
 
     $('.focus_center').click(function() {

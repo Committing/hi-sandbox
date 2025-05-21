@@ -19,10 +19,12 @@ class interactor
     public $use_process = 'interaction';
 
     public $disable_looping = false;
+    public $duplicate_cube = false;
 
     public $supported_vectors = [
         'starting_line',
         'thinking_face',
+        'hi'
     ];
 
 
@@ -57,6 +59,7 @@ class interactor
                 break;
 
             case 'hi':
+                $this->duplicate_cube = true;
                 $this->use_vectors = 'hi';
                 $this->use_process = 'process_hi';
                 break;

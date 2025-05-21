@@ -2,9 +2,20 @@
 /**
  * 
  * 
- * ON Glitch.com edit screen: 
  * 
- * - Click "PREVIEW" on the bottom-right and click "Open preview pane"
+ * 
+ * 
+ * 
+ * 
+ *     ON Glitch.com edit screen: 
+ * 
+ *     - Click "PREVIEW" on the bottom-right and click "Open preview pane"
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
  * 
  * 
  */
@@ -61,6 +72,7 @@ body {
     right: 0;
     height: 100%;
     width: 300px;
+    user-select: none;
 }
 
 .ui button {
