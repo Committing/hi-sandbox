@@ -166,17 +166,6 @@ body {
     border-radius: 100%;
 }
 
-.new_version:empty {
-  display: none;
-}
-
-.new_version {
-    color: red;
-}
-
-.new_version a {
-    color: red;
-}
 
 .edit_code a {
     color: white;
