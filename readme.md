@@ -1,4 +1,11 @@
+# hi.devil.ai
 
-An extremely basic website
+An extremely basic website.
 
-Just download Laragon and put it in the www folder
+## Getting Started
+
+[Download Laragon](https://laragon.org/download/) and put the github files into the `www` directory.
+
+Then open `https://localhost/` in your browser.
+
+## Structure
