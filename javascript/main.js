@@ -38,7 +38,7 @@ function frame1Settings(class_settings) {
 
 
 
-function loadNextFrame(autoplay = false, reset_data = false) {
+function loadNextFrame(autoplay = false, reset_data = false, onload_function = false) {
 
     $('.frame_loader').addClass('show_loader');
 
@@ -149,7 +149,7 @@ function loadNextFrame(autoplay = false, reset_data = false) {
             setSphereSize(sphere_size);
 
 
-            if (data.frame_count == 1 && reset_data !== true) {
+            if (data.frame_count == 1 && onload_function === true) {
                 frame1Settings(class_settings);
             }
 
@@ -276,7 +276,7 @@ $(function() {
     addBigCube(cubename, 0, 0, 0);
 
 
-    loadNextFrame(false, true);
+    loadNextFrame(false, true, true);
     togglePerspective();
 
 
