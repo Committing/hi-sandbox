@@ -216,3 +216,16 @@ body {
     color: grey;
     margin-top: 30px;
 }
+
+.madeby {
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    color: grey;
+    font-size: 14px;
+}
+
+.madeby a {
+    color: grey;
+    text-decoration: none;
+}

@@ -112,6 +112,10 @@ $edit_link = 'https://glitch.com/edit/#!/' . $subdomain;
                 Click Next or Play to see process.
             </div>
 
+            <div class="madeby">
+                <a href="https://devil.ai/jack" target="_blank">made by Jack</a>
+            </div>
+
         </div>
 
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
