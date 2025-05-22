@@ -116,7 +116,10 @@
 
             <div class="info noprocess">
                 Click Next or Play to see process.<br /><br />
-                Auto-stops every 50 frames to save resources
+                Auto-stops every 50 frames to save resources<br /><br />
+                right click = pan
+                left click = rotate
+                scroll = zoom
             </div>
 
             <button class="mobile_menu_btn">Show Buttons</button>
