@@ -107,7 +107,7 @@
 
             <div class="noprocess">
                 <button style="background-color: #44ff43;color: black;" class="next_frame" onclick="loadNextFrame();">Next</button>
-                <button onclick="autoLoadNextFrame();">play</button>
+                <button onclick="autoLoadNextFrame();" class="hide_nexting">play</button>
                 <button onclick="stopAutoLoadNextFrame();">stop</button>
                 <button style="background-color: red;color: white;" onclick="hard_reset();">_reset_</button>
             </div>
@@ -115,7 +115,8 @@
             <br />
 
             <div class="info noprocess">
-                Click Next or Play to see process.
+                Click Next or Play to see process.<br /><br />
+                Auto-stops every 100 frames to save resources
             </div>
 
             <button class="mobile_menu_btn">Show Buttons</button>

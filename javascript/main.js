@@ -42,7 +42,7 @@ function loadNextFrame(autoplay = false, reset_data = false) {
 
     $('.frame_loader').addClass('show_loader');
 
-    $('.next_frame').addClass('noclick');
+    $('.next_frame, .hide_nexting').addClass('noclick');
 
     var send_data = {};
     send_data['reset_data'] = reset_data;
@@ -92,7 +92,9 @@ function loadNextFrame(autoplay = false, reset_data = false) {
 
 
 
-
+            if (data.frame_count % 50 === 0) {
+                stopAutoLoadNextFrame();
+            }
 
 
             $('.frame_data .frame_count').html('Frame: ' + (data.frame_count == null ? 0 : data.frame_count));
@@ -160,7 +162,7 @@ function loadNextFrame(autoplay = false, reset_data = false) {
 
             } else {
 
-                $('.next_frame').removeClass('noclick');
+                $('.next_frame, .hide_nexting').removeClass('noclick');
 
             }
 
@@ -243,7 +245,7 @@ function updateBigCubeCenter(cubes) {
 function resetCamera(cubename = '') {
 
     if (getParameterByName('setup') == 'hi') {
-        
+
         updateBigCubeCenter(cubes);
         moveCameraToAbsolutePosition(253.05465012889428, 129.44022457487128, 827.219639610037, -0.002772842141502365, -0.002780177586649371, -8.470362035361671e-22);
         focusCameraToPosition(center_focus[0], center_focus[1], center_focus[2]);
