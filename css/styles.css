@@ -210,3 +210,9 @@ body {
   background-color: #151526;
   transform: scale(0.98);
 }
+
+.info {
+    font-size: 15px;
+    color: grey;
+    margin-top: 30px;
+}

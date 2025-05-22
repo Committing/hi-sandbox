@@ -10,7 +10,7 @@ var latest_box_data = [];
 
 var autoload = false;
 
-var ajax_delay = 1000;
+var ajax_delay = 300;
 
 var sphere_size = 2;
 
@@ -18,8 +18,22 @@ var center_focus = [127.5, 127.5, 127.5];
 
 
 
+function frame1Settings(class_settings) {
+
+    if (class_settings.show_wireframe == 1) {
+        showWireFrame();
+    } else {
+        hideWireFrame();
+    }
 
 
+    setTimeout(function() {
+
+        resetCamera();
+
+    }, 100);
+
+}
 
 
 
@@ -127,12 +141,10 @@ function loadNextFrame(autoplay = false, reset_data = false) {
 
             setSphereSize(sphere_size);
 
+
             if (data.frame_count == 1) {
-
-                resetCamera();
-
+                frame1Settings(class_settings);
             }
-
 
 
             if (autoplay === true && autoload === true) {
@@ -219,19 +231,17 @@ function updateBigCubeCenter(cubes) {
 
   return center;
 }
+
 function resetCamera(cubename = '') {
 
     if (getParameterByName('setup') == 'hi') {
-
-        moveCameraToAbsolutePosition(262.11191803663206, 90.53692196329055, 824.067945766782, 0.004162227947546557, -0.002367242741346239, 8.47040284366574e-22);
-        toggleWireFrame();
-
+        updateBigCubeCenter(cubes);
+        moveCameraToAbsolutePosition(253.05465012889428, 129.44022457487128, 827.219639610037, -0.002772842141502365, -0.002780177586649371, -8.470362035361671e-22);
+        focusCameraToPosition(center_focus[0], center_focus[1], center_focus[2]);
     } else {
-
         moveCameraToAbsolutePosition(375.8890222426527, 266.3958161399071, 762.936539623091, -0.21519860729762202, 0.3647876340543965, 0.07782230458101305);
         focusCameraToPosition(center_focus[0], center_focus[1], center_focus[2]);
         focusCamera(cubename);
-
     }
 
 }
@@ -250,8 +260,8 @@ $(function() {
 
     loadNextFrame(false, true);
     togglePerspective();
-    
-    
+
+
 
 
     $('.focus_center').click(function() {

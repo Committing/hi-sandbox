@@ -56,7 +56,7 @@ var arrow_key_left  = 6132;
 var arrow_key_down  = 10572;
 var arrow_key_right = 13141.5;
 
-var limit_rotation_top_and_bottom = true;
+var limit_rotation_top_and_bottom = false;
 var ajax_sounds = true; // ajax_sounds = false;
 var white_line_default_color = 0.5; // 0.1 // setLineOpacity(0.1)
 var current_sphere_size = 3; // 3
@@ -820,6 +820,37 @@ function toggleBrightLines(force_value = null) {
 }
 
 function toggleWireFrame() {
+    isWireframeEnabled = !isWireframeEnabled;
+    for (const cubeName in cubes) {
+        if (cubes.hasOwnProperty(cubeName)) {
+            const cubeGroup = cubes[cubeName];
+            // Assuming the wireframe is the first child of the group
+            if (cubeGroup.children.length > 0 && cubeGroup.children[0].type === 'LineSegments') {
+                cubeGroup.children[0].visible = isWireframeEnabled;
+            }
+        }
+    }
+}
+function showWireFrame() {
+    if (isWireframeEnabled == true) {
+        return;
+    }
+    isWireframeEnabled = !isWireframeEnabled;
+    for (const cubeName in cubes) {
+        if (cubes.hasOwnProperty(cubeName)) {
+            const cubeGroup = cubes[cubeName];
+            // Assuming the wireframe is the first child of the group
+            if (cubeGroup.children.length > 0 && cubeGroup.children[0].type === 'LineSegments') {
+                cubeGroup.children[0].visible = isWireframeEnabled;
+            }
+        }
+    }
+}
+
+function hideWireFrame() {
+    if (isWireframeEnabled == false) {
+        return;
+    }
     isWireframeEnabled = !isWireframeEnabled;
     for (const cubeName in cubes) {
         if (cubes.hasOwnProperty(cubeName)) {

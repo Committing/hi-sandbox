@@ -20,6 +20,7 @@ class interactor
 
     public $disable_looping = false;
     public $duplicate_cube = false;
+    public $show_wireframe = true;
 
     public $supported_vectors = [
         'starting_line',
@@ -60,6 +61,7 @@ class interactor
 
             case 'hi':
                 $this->duplicate_cube = true;
+                $this->show_wireframe = false;
                 $this->use_vectors = 'hi';
                 $this->use_process = 'process_hi';
                 break;
