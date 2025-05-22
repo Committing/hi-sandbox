@@ -117,8 +117,8 @@
             <div class="info noprocess">
                 Click Next or Play to see process.<br /><br />
                 Auto-stops every 50 frames to save resources<br /><br />
-                right click = pan
-                left click = rotate
+                right click = pan<br />
+                left click = rotate<br />
                 scroll = zoom
             </div>
 
