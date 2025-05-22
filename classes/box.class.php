@@ -1,7 +1,26 @@
 <?php
 
 
-
+/**
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ *     ON Glitch.com edit screen: 
+ * 
+ *     - Click "PREVIEW" on the bottom-right and click "Open preview pane"
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
 
 
 

@@ -22,7 +22,7 @@ class interactor
     public $duplicate_cube = false;
     public $show_wireframe = true;
 
-    public $frame_count = 0;
+    public $frame_count = 1;
 
     public $supported_vectors = [
         'starting_line',
