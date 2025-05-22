@@ -149,7 +149,7 @@ function loadNextFrame(autoplay = false, reset_data = false) {
             setSphereSize(sphere_size);
 
 
-            if (data.frame_count == 1) {
+            if (data.frame_count == 1 && reset_data !== true) {
                 frame1Settings(class_settings);
             }
 
