@@ -229,3 +229,7 @@ body {
     color: grey;
     text-decoration: none;
 }
+
+.madeby a:hover {
+    color: white;
+}

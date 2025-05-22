@@ -37,7 +37,7 @@ $edit_link = 'https://glitch.com/edit/#!/' . $subdomain;
 
         <div class="ui">
 
-            <div class="button_selection">
+            <div class="button_selection" style="<?=(isset($_GET['hide_setup']) && $_GET['hide_setup'] == 1 ? 'display: none;' : '');?>">
                 <br /><span class="tiny_title">Switch setup</span><br />
                 <div class="switch_links"></div>
             </div>
