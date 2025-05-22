@@ -1,4 +1,4 @@
-An extremely basic website
+A website with no dependencies
 
 [Download Laragon](https://laragon.org/download/) and put the github files into the `www` directory.
 
