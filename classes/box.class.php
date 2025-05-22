@@ -94,10 +94,8 @@ class box extends box_positions
         $understanding = $this->understandingInteraction([$input1, $input2]);
 
         $understanding = $this->understandingInteraction([[255, 0, 0]]);
-        $m = $this->middleInteraction($understanding['c']);
-
-
-        $mm = $this->middleInteraction($understanding['s']);
+        $this->middleInteraction($understanding['c']);
+        $this->middleInteraction($understanding['s']);
         $understanding = $this->understandingInteraction([[255, 255, 0]]);
         $this->middleInteraction($understanding['c']);
         $this->middleInteraction($understanding['s']);

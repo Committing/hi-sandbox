@@ -243,9 +243,17 @@ function updateBigCubeCenter(cubes) {
 function resetCamera(cubename = '') {
 
     if (getParameterByName('setup') == 'hi') {
+        
         updateBigCubeCenter(cubes);
         moveCameraToAbsolutePosition(253.05465012889428, 129.44022457487128, 827.219639610037, -0.002772842141502365, -0.002780177586649371, -8.470362035361671e-22);
         focusCameraToPosition(center_focus[0], center_focus[1], center_focus[2]);
+
+    } else if (getParameterByName('setup') == 'thinking_face') {
+
+        updateBigCubeCenter(cubes);
+        moveCameraToAbsolutePosition(125.85180139041015, 128.08330154342923, 823.7511710587299, -0.0008377720524533236, -0.0023672427413462386, 0);
+        focusCameraToPosition(center_focus[0], center_focus[1], center_focus[2]);
+
     } else {
         moveCameraToAbsolutePosition(375.8890222426527, 266.3958161399071, 762.936539623091, -0.21519860729762202, 0.3647876340543965, 0.07782230458101305);
         focusCameraToPosition(center_focus[0], center_focus[1], center_focus[2]);

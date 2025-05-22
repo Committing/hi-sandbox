@@ -57,6 +57,7 @@ class interactor
                 break;
 
             case 'thinking_face':
+                $this->show_wireframe = false;
                 $this->use_vectors = 'thinking_face';
                 $this->use_process = 'process_thinking_face';
                 break;
