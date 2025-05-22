@@ -1,0 +1,1 @@
+local: hi-snoozing.com.test
