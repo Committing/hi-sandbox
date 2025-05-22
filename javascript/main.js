@@ -69,7 +69,9 @@ function loadNextFrame(autoplay = false, reset_data = false) {
             loop_data = data.loop_data;
 
 
-
+            if (class_settings.disable_looping === true) {
+                $('.noprocess').hide();
+            }
 
 
             // build buttons to all switch setups
@@ -279,6 +281,11 @@ $(function() {
         var buttons = $(this).closest('.button_selection').find('button');
         buttons.removeClass('selected');
         $(this).addClass('selected');
+    });
+
+
+    $('.mobile_menu_btn').click(function() {
+        $('.ui').toggleClass('show_mobile_menu');
     });
 
 

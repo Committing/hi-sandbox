@@ -233,3 +233,54 @@ body {
 .madeby a:hover {
     color: white;
 }
+
+.ui button.mobile_menu_btn {
+    display: none;
+}
+
+@media (max-width: 700px) {
+
+    .ui {
+        height: auto;
+    }
+
+    .ui .hide_menu {
+        display: none;
+    }
+
+    .ui button.mobile_menu_btn {
+        display: inline-block;
+    }
+
+    .info {
+        padding-left:  15px;
+    }
+
+}
+
+
+.ui.show_mobile_menu .hide_menu {
+    display: block;
+}
+
+.ui.show_mobile_menu {
+    background-color: black;
+    padding: 15px;
+}
+
+.ui button.mobile_menu_btn {
+    background-color: #3a1694;
+    color: #ffffff;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-bottom: 16px;
+}

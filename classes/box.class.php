@@ -88,7 +88,7 @@ class box extends box_positions
     {
 
         # add line between inputs
-        $this->boxOutput('main_cube', [127.5, 127.5, 127.5]);
+        // $this->boxOutput('main_cube', [127.5, 127.5, 127.5]);
         $this->boxOutput('main_cube', [$input1, $input2], '', 'line');
 
         $understanding = $this->understandingInteraction([$input1, $input2]);
