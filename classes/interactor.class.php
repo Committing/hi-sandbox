@@ -22,6 +22,8 @@ class interactor
     public $duplicate_cube = false;
     public $show_wireframe = true;
 
+    public $frame_count = 0;
+
     public $supported_vectors = [
         'starting_line',
         'thinking_face',
@@ -81,23 +83,23 @@ class interactor
 
 
 
-    public function checkResetData()
-    {
-        if (isset($_POST['reset_data']) && $_POST['reset_data'] == 'true' || $this->disable_looping === true) {
-            unset($_SESSION['loop']);
-            $_SESSION['frame_count'] = 1;
-        }
-    }
+    // public function checkResetData()
+    // {
+    //     if (isset($_POST['reset_data']) && $_POST['reset_data'] == 'true' || $this->disable_looping === true) {
+    //         unset($_POST['loop_data']);
+    //         $this->frame_count = 1;
+    //     }
+    // }
 
 
     public function loadPreviousProcess()
     {
         # override variables if looping (not first loop)
-        if ( isset($_SESSION['loop']) && ! empty($_SESSION['loop']) ) {
+        if ( isset($_POST['loop_data']) && ! empty($_POST['loop_data']) ) {
 
-            $this->v->previous_loop = $_SESSION['loop'];
+            $this->v->previous_loop = $_POST['loop_data']['result'];
 
-            $_SESSION['frame_count'] = $_SESSION['frame_count'] + 1;
+            $this->frame_count = $_POST['loop_data']['frame_count'] + 1;
 
         }
     }
@@ -111,7 +113,7 @@ class interactor
 
     public function saveProcesses()
     {
-        $_SESSION['loop'] = $this->v->result;
+        $this->result = $this->v->result;
     }
 
 
@@ -119,7 +121,12 @@ class interactor
     {
         $output = [];
 
-        $output['frame_count'] = $_SESSION['frame_count'];
+        $output['frame_count'] = $this->frame_count;
+
+        $output['loop_data'] = [
+            'frame_count' => $this->frame_count,
+            'result' => $this->result,
+        ];
 
         $output['box'] = $this->v->box;
 

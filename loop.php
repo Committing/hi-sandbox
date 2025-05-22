@@ -4,7 +4,6 @@
 # For displaying in an rgb cube 2d or 3d.
 # Only lines and dots
 
-session_start(); # for looping data around
 require_once('functions.php');
 require_once('classes/interactor.class.php');
 require_once('classes/colors.class.php');
@@ -21,7 +20,7 @@ $i->use_setup = isset($_POST['setup']) && ! empty($_POST['setup']) ? $_POST['set
 $i->loadSetup();
 
 # If _reset_ was clicked, load first frame
-$i->checkResetData();
+// $i->checkResetData();
 
 # Load past loop's output for reiteration
 $i->loadPreviousProcess();

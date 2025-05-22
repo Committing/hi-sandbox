@@ -7,6 +7,7 @@
 var cubename = 'cube';
 
 var latest_box_data = [];
+var loop_data = [];
 
 var autoload = false;
 
@@ -46,6 +47,7 @@ function loadNextFrame(autoplay = false, reset_data = false) {
     var send_data = {};
     send_data['reset_data'] = reset_data;
     send_data['setup'] = getParameterByName('setup');
+    send_data['loop_data'] = loop_data;
 
     $.ajax({
         type: 'POST',
@@ -64,6 +66,7 @@ function loadNextFrame(autoplay = false, reset_data = false) {
 
             var class_settings = data.interactor_settings;
 
+            loop_data = data.loop_data;
 
 
 
@@ -190,6 +193,9 @@ function stopAutoLoadNextFrame() {
 }
 
 function hard_reset() {
+
+    loop_data = [];
+
     stopAutoLoadNextFrame()
     setTimeout(function() {
         loadNextFrame(false, true);
