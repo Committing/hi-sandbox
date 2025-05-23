@@ -132,7 +132,7 @@
 
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-        <script src="/javascript/box.js?v=<?=time();?>"></script>
-        <script src="/javascript/main.js?v=<?=time();?>"></script>
+        <script src="/javascript/box.js?v=1<?=time();?>"></script>
+        <script src="/javascript/main.js?v=1<?=time();?>"></script>
     </body>
 </html>
