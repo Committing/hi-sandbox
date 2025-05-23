@@ -7,16 +7,13 @@ class vectors extends box
     
 
     public $loop = [];
-
     public $previous_loop = [];
-
     public $vectors = [];
+    public $group_by_properties = [];
 
     public $g = null;
 
-    // $this->group_by_properties = [
-    //     'conscious'
-    // ];
+
 
     public function __construct()
     {
@@ -40,6 +37,11 @@ class vectors extends box
             case 'starting_line':
                 $this->color_group = $this->g->groups['starting_line'];
                 $this->box_positions = $this->box_positions_starting_line;
+                break;
+
+            case 'test':
+                $this->color_group = $this->g->groups['hi'];
+                $this->group_by_properties = [ 'conscious' ];
                 break;
 
 

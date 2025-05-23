@@ -18,7 +18,7 @@ class interactor
     # What process to use for the vector
     public $use_process = 'interaction';
 
-    public $disable_looping = false;
+    public $disable_looping = false; # i.e. only load first frame
     public $duplicate_cube = false;
     public $show_wireframe = true;
 
@@ -66,6 +66,13 @@ class interactor
                 $this->duplicate_cube = true;
                 $this->show_wireframe = false;
                 $this->use_vectors = 'hi';
+                $this->use_process = 'process_hi';
+                break;
+
+
+            case 'test':
+                $this->show_wireframe = false;
+                $this->use_vectors = 'test';
                 $this->use_process = 'process_hi';
                 break;
 
