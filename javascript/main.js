@@ -309,6 +309,7 @@ $(function() {
 
     if ( getParameterByName('delay') ) {
         ajax_delay = parseInt(getParameterByName('delay'));
+        $('[onclick="setDelay(' + ajax_delay + ');"]').trigger('click');
     }
 
     if ( getParameterByName('limit') ) {
