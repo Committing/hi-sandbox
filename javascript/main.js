@@ -17,6 +17,7 @@ var sphere_size = 2;
 
 var center_focus = [127.5, 127.5, 127.5];
 
+var frame_limit = 50;
 
 
 function frame1Settings(class_settings) {
@@ -91,8 +92,8 @@ function loadNextFrame(autoplay = false, reset_data = false, onload_function = f
             }
 
 
-
-            if (data.frame_count % 50 === 0) {
+            // stop from playing every x frames
+            if (data.frame_count % frame_limit === 0) {
                 stopAutoLoadNextFrame();
             }
 
@@ -305,6 +306,14 @@ $(function() {
         window.location.href = window.location.pathname + '?setup=hi';
     }
 
+
+    if ( getParameterByName('delay') ) {
+        ajax_delay = parseInt(getParameterByName('delay'));
+    }
+
+    if ( getParameterByName('limit') ) {
+        frame_limit = parseInt(getParameterByName('limit'));
+    }
 
 
 });
