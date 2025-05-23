@@ -1,4 +1,3 @@
-
 /*
 
 Fundamental cube commands:
@@ -128,36 +127,46 @@ const originalPositions = {};
 
 // toggleClamp();
 
+// Add these variables at the top with other state variables
+let initialPinchDistance = 0;
+let isPinching = false;
+
 
 
 
 // Camera controls
 const mouseDown = (e) => {
     e.preventDefault();
-    // console.log('test');
     if (e.touches) {
         if (e.touches.length === 1) {
-            isRotatingManually = true; // Updated variable name
+            isRotatingManually = true;
             previousMousePosition = {
                 x: e.touches[0].clientX,
                 y: e.touches[0].clientY
             };
+        } else if (e.touches.length === 2) {
+            isPinching = true;
+            // Calculate initial distance between two touch points
+            initialPinchDistance = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+            );
         }
     } else {
-        if (e.button === 0) isRotatingManually = true; // Updated variable name
+        if (e.button === 0) isRotatingManually = true;
         if (e.button === 2) isPanning = true;
         previousMousePosition = {
             x: e.clientX,
             y: e.clientY
         };
     }
-    // Stop camera animation on user interaction
     stopAnimatingToCameraPosition();
 };
 
-const mouseUp = () => {
-    isRotatingManually = false; // Updated variable name
+const mouseUp = (e) => {
+    isRotatingManually = false;
     isPanning = false;
+    isPinching = false;
 };
 
 function togglePerspective(on_or_off = null) {
@@ -233,68 +242,123 @@ function releaseCamera() {
 
 // Modified mouseMove handler
 const mouseMove = (e) => {
-    if (!isRotatingManually && !isPanning) return; // Updated variable name
-    
-    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
-    const clientY = e.clientY || (e.touches && e.touches[0].clientY);
-    
-    const deltaX = clientX - previousMousePosition.x;
-    const deltaY = clientY - previousMousePosition.y;
+    if (e.touches) {
+        if (e.touches.length === 1 && isRotatingManually) {
+            const clientX = e.touches[0].clientX;
+            const clientY = e.touches[0].clientY;
+            
+            const deltaX = clientX - previousMousePosition.x;
+            const deltaY = clientY - previousMousePosition.y;
 
-    if (isRotatingManually) { // Updated variable name
-        if (isCameraFocused) {
-            // Orbit around focused position
-            spherical.theta -= deltaX * 0.005;
-            spherical.phi -= deltaY * 0.005;
+            if (isCameraFocused) {
+                spherical.theta -= deltaX * 0.005;
+                spherical.phi -= deltaY * 0.005;
 
-            if (limit_rotation_top_and_bottom === true) {
-                spherical.phi = Math.max(0.1, Math.min(Math.PI - 0.1, spherical.phi));
+                if (limit_rotation_top_and_bottom === true) {
+                    spherical.phi = Math.max(0.1, Math.min(Math.PI - 0.1, spherical.phi));
+                }
+
+                const offset = new THREE.Vector3().setFromSpherical(spherical);
+                camera.position.copy(focusedCubePosition).add(offset);
+                camera.lookAt(focusedCubePosition);
+            } else {
+                const euler = new THREE.Euler(camera.rotation.x, camera.rotation.y, camera.rotation.z, 'YXZ');
+                euler.y -= deltaX * 0.005;
+                euler.x -= deltaY * 0.005;
+                euler.x = THREE.MathUtils.clamp(euler.x, -Math.PI / 2, Math.PI / 2);
+                camera.rotation.copy(euler);
             }
 
-            const offset = new THREE.Vector3().setFromSpherical(spherical);
-            camera.position.copy(focusedCubePosition).add(offset);
-            camera.lookAt(focusedCubePosition);
-        } else {
-            const euler = new THREE.Euler(camera.rotation.x, camera.rotation.y, camera.rotation.z, 'YXZ');
-            euler.y -= deltaX * 0.005;
-            euler.x -= deltaY * 0.005;
-            euler.x = THREE.MathUtils.clamp(euler.x, -Math.PI / 2, Math.PI / 2);
-            camera.rotation.copy(euler);
+            previousMousePosition = { x: clientX, y: clientY };
+        } else if (e.touches.length === 2 && isPinching) {
+            // Calculate current distance between touch points
+            const currentDistance = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+            );
+            
+            // Calculate zoom factor based on pinch distance change
+            const zoomFactor = currentDistance / initialPinchDistance;
+            
+            // Apply zoom
+            if (isOrthographic) {
+                orthoHeight *= 1 / zoomFactor;
+            } else if (isCameraFocused) {
+                spherical.radius *= 1 / zoomFactor;
+                const offset = new THREE.Vector3().setFromSpherical(spherical);
+                camera.position.copy(focusedCubePosition).add(offset);
+                camera.lookAt(focusedCubePosition);
+            } else {
+                camera.translateZ(100 * (1 - zoomFactor));
+            }
+            
+            // Update initial distance for next frame
+            initialPinchDistance = currentDistance;
         }
-    } else if (isPanning) {
-        // Determine panning speed based on camera distance
-        let distance;
-        if (isCameraFocused) {
-            distance = spherical.radius;
-        } else {
-            distance = camera.position.length();
+    } else {
+        if (!isRotatingManually && !isPanning) return; // Updated variable name
+        
+        const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+        const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+        
+        const deltaX = clientX - previousMousePosition.x;
+        const deltaY = clientY - previousMousePosition.y;
+
+        if (isRotatingManually) { // Updated variable name
+            if (isCameraFocused) {
+                // Orbit around focused position
+                spherical.theta -= deltaX * 0.005;
+                spherical.phi -= deltaY * 0.005;
+
+                if (limit_rotation_top_and_bottom === true) {
+                    spherical.phi = Math.max(0.1, Math.min(Math.PI - 0.1, spherical.phi));
+                }
+
+                const offset = new THREE.Vector3().setFromSpherical(spherical);
+                camera.position.copy(focusedCubePosition).add(offset);
+                camera.lookAt(focusedCubePosition);
+            } else {
+                const euler = new THREE.Euler(camera.rotation.x, camera.rotation.y, camera.rotation.z, 'YXZ');
+                euler.y -= deltaX * 0.005;
+                euler.x -= deltaY * 0.005;
+                euler.x = THREE.MathUtils.clamp(euler.x, -Math.PI / 2, Math.PI / 2);
+                camera.rotation.copy(euler);
+            }
+        } else if (isPanning) {
+            // Determine panning speed based on camera distance
+            let distance;
+            if (isCameraFocused) {
+                distance = spherical.radius;
+            } else {
+                distance = camera.position.length();
+            }
+
+            // Calculate pan speed: base speed + scaling based on distance
+            // Adjust baseSpeed and scalingFactor as needed for desired feel // Adjust this value to control how much faster it gets when zoomed out
+            const panSpeed = basePanSpeed + distance * scalingFactor;
+
+
+            if (isCameraFocused) {
+                // Pan the focused position
+                const cameraDirection = new THREE.Vector3();
+                camera.getWorldDirection(cameraDirection);
+                const rightDirection = new THREE.Vector3().crossVectors(cameraDirection, camera.up).normalize();
+                const upDirection = new THREE.Vector3().copy(camera.up).normalize();
+
+                focusedCubePosition.add(rightDirection.multiplyScalar(-deltaX * panSpeed));
+                focusedCubePosition.add(upDirection.multiplyScalar(deltaY * panSpeed));
+
+                const offset = new THREE.Vector3().setFromSpherical(spherical);
+                camera.position.copy(focusedCubePosition).add(offset);
+                camera.lookAt(focusedCubePosition);
+            } else {
+                camera.translateX(-deltaX * panSpeed);
+                camera.translateY(deltaY * panSpeed);
+            }
         }
 
-        // Calculate pan speed: base speed + scaling based on distance
-        // Adjust baseSpeed and scalingFactor as needed for desired feel // Adjust this value to control how much faster it gets when zoomed out
-        const panSpeed = basePanSpeed + distance * scalingFactor;
-
-
-        if (isCameraFocused) {
-            // Pan the focused position
-            const cameraDirection = new THREE.Vector3();
-            camera.getWorldDirection(cameraDirection);
-            const rightDirection = new THREE.Vector3().crossVectors(cameraDirection, camera.up).normalize();
-            const upDirection = new THREE.Vector3().copy(camera.up).normalize();
-
-            focusedCubePosition.add(rightDirection.multiplyScalar(-deltaX * panSpeed));
-            focusedCubePosition.add(upDirection.multiplyScalar(deltaY * panSpeed));
-
-            const offset = new THREE.Vector3().setFromSpherical(spherical);
-            camera.position.copy(focusedCubePosition).add(offset);
-            camera.lookAt(focusedCubePosition);
-        } else {
-            camera.translateX(-deltaX * panSpeed);
-            camera.translateY(deltaY * panSpeed);
-        }
+        previousMousePosition = { x: clientX, y: clientY };
     }
-
-    previousMousePosition = { x: clientX, y: clientY };
 };
 
 // Modified zoom handler
