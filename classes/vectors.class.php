@@ -29,16 +29,16 @@ class vectors extends box
         switch ($vector_type) {
 
             case 'hi':
-                $this->colors = $this->g->groups['hi'];
+                $this->color_groups = $this->g->groups['hi'];
                 break;
 
             case 'thinking_face':
-                $this->colors = $this->g->groups['thinking_face'];
+                $this->color_groups = $this->g->groups['thinking_face'];
                 break;
 
 
             case 'starting_line':
-                $this->colors = $this->g->groups['starting_line'];
+                $this->color_groups = $this->g->groups['starting_line'];
                 $this->box_positions = $this->box_positions_starting_line;
                 break;
 
@@ -48,7 +48,7 @@ class vectors extends box
         if ( ! empty($this->previous_loop) ) {
             $this->loop = $this->previous_loop;
         } else {
-            $this->loop = $this->onlyColorsArray($this->colors);
+            $this->loop = $this->onlyColorsArray($this->color_groups);
         }
     }
 
