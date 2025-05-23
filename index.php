@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>HI Sandbox Area</title>
-    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/styles.css?v=<?=time();?>?" />
 
     <meta id="vp" name="viewport" content="width=device-width, initial-scale=1">
         <script>
