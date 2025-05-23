@@ -114,7 +114,7 @@
 
             <br />
 
-            <div class="info noprocess">
+            <div class="info noprocess hidemobile">
                 Click Next or Play to see process.<br /><br />
                 Auto-stops every 50 frames to save resources<br /><br />
                 right click = pan<br />
