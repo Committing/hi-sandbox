@@ -313,6 +313,7 @@ $(function() {
 
     if ( getParameterByName('limit') ) {
         frame_limit = parseInt(getParameterByName('limit'));
+        $('.frame_stop_number').html(frame_limit);
     }
 
 
