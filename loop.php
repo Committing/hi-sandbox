@@ -4,13 +4,10 @@
 # For displaying in an rgb cube 2d or 3d.
 # Only lines and dots
 
-// disabled errors
-error_reporting(0);
-ini_set('display_errors', 0);
-
+require_once('defaults.php');
 require_once('functions.php');
 require_once('classes/interactor.class.php');
-require_once('classes/colors.class.php');
+require_once('classes/groups.class.php');
 require_once('classes/box_positions.class.php');
 require_once('classes/box.class.php');
 require_once('classes/vectors.class.php');

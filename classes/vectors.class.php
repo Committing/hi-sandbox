@@ -12,7 +12,7 @@ class vectors extends box
 
     public $vectors = [];
 
-    public $c = null;
+    public $g = null;
 
     // $this->group_by_properties = [
     //     'conscious'
@@ -20,7 +20,7 @@ class vectors extends box
 
     public function __construct()
     {
-        $this->c = new colors();
+        $this->g = new groups();
     }
 
 
@@ -29,16 +29,16 @@ class vectors extends box
         switch ($vector_type) {
 
             case 'hi':
-                $this->colors = $this->c->groups['hi'];
+                $this->colors = $this->g->groups['hi'];
                 break;
 
             case 'thinking_face':
-                $this->colors = $this->c->groups['thinking_face'];
+                $this->colors = $this->g->groups['thinking_face'];
                 break;
 
 
             case 'starting_line':
-                $this->colors = $this->c->groups['starting_line'];
+                $this->colors = $this->g->groups['starting_line'];
                 $this->box_positions = $this->box_positions_starting_line;
                 break;
 
